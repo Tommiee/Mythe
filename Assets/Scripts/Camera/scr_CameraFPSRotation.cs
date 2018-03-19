@@ -31,7 +31,6 @@ public class scr_CameraFPSRotation : MonoBehaviour {
         //print(this.transform.localEulerAngles.x);
 
         rotation = new Vector3(Mathf.Clamp(this.transform.localEulerAngles.x, -limitAngle, limitAngle), 0, 0);
-        print(rotation.x);
         if(rotation.x >= 0)
         {
             this.transform.localEulerAngles = rotation;

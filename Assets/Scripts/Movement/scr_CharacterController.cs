@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class scr_CharacterController : MonoBehaviour {
+
     private scr_InputManager inputManager;
-    private scr_GrabObject grabManager;
+
+    [SerializeField]
+    private GameObject inv;
+    private Inventory inventory;
 
     [SerializeField]
     private float grabRange = 20f;
+
     [SerializeField]
     private float inputSpeed = 5;
+
     [SerializeField]
     private float sprintMultiplier = 2;
     private float movementSpeed;
@@ -23,26 +29,13 @@ public class scr_CharacterController : MonoBehaviour {
         {
             inputManager = this.gameObject.AddComponent<scr_InputManager>();
         }
-        if (!(grabManager = this.GetComponent<scr_GrabObject>()))
-        {
-            grabManager = this.gameObject.AddComponent<scr_GrabObject>();
-        }
+        inventory = inv.GetComponent<Inventory>();
     }
 
     void Update()
     {
         Walk();
-        Grab();
-    }
-
-    void Grab()
-    {
-        //It grabs stuff.
-        if (inputManager.F())
-        {
-            GameObject grabbed = grabManager.PickUp(grabRange);
-            Debug.Log(grabbed);
-        }
+        PickUp(grabRange);
     }
 
     void Walk()
@@ -88,5 +81,28 @@ public class scr_CharacterController : MonoBehaviour {
     public void Unfreeze()
     {
         movementLock = false;
+    }
+
+    public void PickUp(float range)
+    {
+        //Finds the camera, and it's forward facing vector.
+        Camera cam = gameObject.GetComponentInChildren<Camera>();
+        Vector3 fwd = cam.transform.TransformDirection(Vector3.forward);
+        RaycastHit hit;
+
+        if (Physics.Raycast(cam.transform.position, fwd, out hit, range))
+        {
+            if (inputManager.F())
+            {
+                Collectable collectable;
+                if (collectable = hit.transform.gameObject.GetComponent<Collectable>())
+                {
+                    ObjectData obj = hit.transform.gameObject.GetComponent<Collectable>().obj;
+
+                    inventory.CollectedItem(obj);
+                    Destroy(hit.transform.gameObject);
+                }
+            }
+        }
     }
 }
