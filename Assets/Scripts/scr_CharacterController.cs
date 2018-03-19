@@ -3,9 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class scr_CharacterController : MonoBehaviour {
+
     private scr_InputManager inputManager;
+
+    [SerializeField]
+    private Inventory inventory;
+
     [SerializeField]
     private float inputSpeed = 5;
+
     [SerializeField]
     private float sprintMultiplier = 2;
     private float movementSpeed;
@@ -21,10 +27,6 @@ public class scr_CharacterController : MonoBehaviour {
     void Update()
     {
         Walking();
-        if (inputManager.F()) {
-            GameObject grabbed = PickUp();
-            Debug.Log(grabbed);
-        }
     }
 
     void Walking()
@@ -51,15 +53,18 @@ public class scr_CharacterController : MonoBehaviour {
         this.transform.position += (moveVector * Time.deltaTime * movementSpeed);
     }
 
-    GameObject PickUp() {
+    void PickUp()
+    {
         Camera cam = gameObject.GetComponentInChildren<Camera>();
         Vector3 fwd = cam.transform.TransformDirection(Vector3.forward);
         RaycastHit hit;
 
         if (Physics.Raycast(cam.transform.position, fwd, out hit, 100f))
         {
-            return hit.transform.gameObject;
-        } else { return null; }
+            if(inputManager.F())
+            {
+                inventory.CollectedItem(hit.GameObjec)
+            }
+        }
     }
-
 }
