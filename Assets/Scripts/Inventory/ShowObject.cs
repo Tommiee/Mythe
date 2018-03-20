@@ -21,6 +21,7 @@ public class ShowObject : MonoBehaviour
     private float fadeTimer = 2f;
 
     private IEnumerator DisplayIEnumerator;
+    private bool displaying = false;
 
     void Start()
     {
@@ -32,13 +33,18 @@ public class ShowObject : MonoBehaviour
     public void ShowCollectable(ObjectData data)
     {
         itemData.Add(data);
-        StartCoroutine(FadeOut(itemData[0]));
+        if(!displaying)
+        {
+            StartCoroutine(FadeOut(itemData[0]));
+        }
     }
 
     IEnumerator FadeOut(ObjectData item)
     {
         if (nameText != null) { nameText.text = item.name; }
         if (descriptionText != null) { descriptionText.text = item.description; }
+
+        displaying = true;
 
         line.GetComponent<Animation>().Play();
         nameText.CrossFadeAlpha(1f, fadeTimer, false);
@@ -54,24 +60,10 @@ public class ShowObject : MonoBehaviour
         yield return new WaitForSeconds(fadeTimer);
 
         itemData.RemoveAt(0);
-        print("hoebeel?");
+        displaying = false;
         if(itemData.Count > 0)
         {
             StartCoroutine(FadeOut(itemData[0]));
         }
     }
-}
-
-Queue items
-Ienumerator()
-{
-    ík ben aan het displayen...
-
-    while (items!=leeg)
-    {
-        Display item
-        etc. etc.
-        verwijder item uit queue (Display lijst)
-    }
-    ik ben klaar met display
 }
