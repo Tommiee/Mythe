@@ -948,7 +948,7 @@ Camera:
     m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 1
+  m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
@@ -1090,9 +1090,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inv: {fileID: 2003767691}
+  playerCam: {fileID: 1106387674}
+  inventoryCam: {fileID: 1907251040}
   grabRange: 20
   speed: 4
-  sprintMultiplier: 2
 --- !u!23 &2056491352
 MeshRenderer:
   m_ObjectHideFlags: 0

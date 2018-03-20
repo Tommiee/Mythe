@@ -12,6 +12,11 @@ public class scr_CharacterController : MonoBehaviour
     private GameObject inv;
     private Inventory inventory;
 
+    [SerializeField]
+    private Camera playerCam;
+    [SerializeField]
+    private Camera inventoryCam;
+
     private Rigidbody rb;
     [SerializeField]
     private float grabRange = 20f;
@@ -19,12 +24,7 @@ public class scr_CharacterController : MonoBehaviour
     [SerializeField]
     private float speed = 5;
 
-    [SerializeField]
-    private float sprintMultiplier = 2;
-    private float movementSpeed;
     private bool movementLock;
-    private Vector3 velocity = Vector3.zero;
-
 
     void Start()
     {
@@ -36,46 +36,46 @@ public class scr_CharacterController : MonoBehaviour
         }
         inventory = inv.GetComponent<Inventory>();
         rb = GetComponent<Rigidbody>();
+
+        inventoryCam.enabled = false;
+        playerCam.enabled = true;
     }
 
     void Update()
     {
         Walk();
+        Inventory();
         PickUp(grabRange);
     }
 
     void Walk()
     {
-        if (!movementLock)
-        {
-            Vector3 movHorizontal = this.transform.right * inputManager.XMov();
-            Vector3 movVertical = this.transform.forward * inputManager.ZMov();
-            Vector3 velocity = (movHorizontal + movVertical).normalized * speed;
-            bool moving = inputManager.ZMov() != 0 || inputManager.XMov() != 0;
+        Vector3 movHorizontal = this.transform.right * inputManager.XMov();
+        Vector3 movVertical = this.transform.forward * inputManager.ZMov();
+        Vector3 velocity = (movHorizontal + movVertical).normalized * speed;
+        bool moving = inputManager.ZMov() != 0 || inputManager.XMov() != 0;
 
-            if (velocity != Vector3.zero)
-            {
-                rb.MovePosition(transform.position + velocity * Time.fixedDeltaTime);
-            }
-            if (moving) { speed += 0.2f; }
-            else if (!moving)
-            {
-                speed = Mathf.Lerp(speed, 0f, 20 * Time.deltaTime);
-            }
-            speed = Mathf.Clamp(speed, -5, 5);
+        if (velocity != Vector3.zero)
+        {
+            rb.MovePosition(transform.position + velocity * Time.fixedDeltaTime);
         }
+        if (moving) { speed += 0.2f; }
+        else if (!moving)
+        {
+            speed = Mathf.Lerp(speed, 0f, 20 * Time.deltaTime);
+        }
+        speed = Mathf.Clamp(speed, -5, 5);
     }
 
     //These two are required for freezing the movement when opening the inventory.
     //I know it looks odd, but we need these.
-    public void Freeze()
+    public void Inventory()
     {
-        movementLock = true;
-    }
-
-    public void Unfreeze()
-    {
-        movementLock = false;
+        if(inputManager.Inventory() != 0)
+        {
+            inventoryCam.enabled = true;
+            playerCam.enabled = false;
+        }
     }
 
     public void PickUp(float range)
