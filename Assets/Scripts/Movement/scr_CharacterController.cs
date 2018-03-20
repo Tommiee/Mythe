@@ -2,34 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class scr_CharacterController : MonoBehaviour {
-
-    private scr_InputManager inputManager;
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(InputManager))]
+public class scr_CharacterController : MonoBehaviour
+{
+    private InputManager inputManager;
 
     [SerializeField]
     private GameObject inv;
     private Inventory inventory;
 
+    private Rigidbody rb;
     [SerializeField]
     private float grabRange = 20f;
 
     [SerializeField]
-    private float inputSpeed = 5;
+    private float speed = 5;
 
     [SerializeField]
     private float sprintMultiplier = 2;
     private float movementSpeed;
     private bool movementLock;
+    private Vector3 velocity = Vector3.zero;
+
 
     void Start()
     {
         //Find and add required scripts, if you've forgotten/dont want to add them in the editor.
         //Not completely necessary, but what the hell, i'm both lazy and forgetful.
-        if (!(inputManager = this.GetComponent<scr_InputManager>()))
+        if (!(inputManager = this.GetComponent<InputManager>()))
         {
-            inputManager = this.gameObject.AddComponent<scr_InputManager>();
+            inputManager = this.gameObject.AddComponent<InputManager>();
         }
         inventory = inv.GetComponent<Inventory>();
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -42,32 +48,21 @@ public class scr_CharacterController : MonoBehaviour {
     {
         if (!movementLock)
         {
-            //This bit moves the character.
-            Vector3 moveVector = new Vector3();
-            movementSpeed = inputSpeed;
+            Vector3 movHorizontal = this.transform.right * inputManager.XMov();
+            Vector3 movVertical = this.transform.forward * inputManager.ZMov();
+            Vector3 velocity = (movHorizontal + movVertical).normalized * speed;
+            bool moving = inputManager.ZMov() != 0 || inputManager.XMov() != 0;
 
-            if (inputManager.Shift())
+            if (velocity != Vector3.zero)
             {
-                movementSpeed = inputSpeed * sprintMultiplier;
+                rb.MovePosition(transform.position + velocity * Time.fixedDeltaTime);
             }
-            if (inputManager.Up())
+            if (moving) { speed += 0.2f; }
+            else if (!moving)
             {
-                moveVector += this.transform.forward;
+                speed = Mathf.Lerp(speed, 0f, 20 * Time.deltaTime);
             }
-            if (inputManager.Down())
-            {
-                moveVector -= this.transform.forward;
-            }
-            if (inputManager.Right())
-            {
-                moveVector += this.transform.right;
-            }
-            if (inputManager.Left())
-            {
-                moveVector -= this.transform.right;
-            }
-            moveVector.Normalize();
-            this.transform.position += (moveVector * Time.deltaTime * movementSpeed);
+            speed = Mathf.Clamp(speed, -5, 5);
         }
     }
 
@@ -92,7 +87,7 @@ public class scr_CharacterController : MonoBehaviour {
 
         if (Physics.Raycast(cam.transform.position, fwd, out hit, range))
         {
-            if (inputManager.F())
+            if (inputManager.Interact() != 0)
             {
                 Collectable collectable;
                 if (collectable = hit.transform.gameObject.GetComponent<Collectable>())
