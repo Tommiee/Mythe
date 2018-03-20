@@ -8,7 +8,8 @@ public class scr_CameraFPSRotation : MonoBehaviour {
 	float cameraSpeed;
 	[SerializeField]
 	GameObject parent;
-
+    [SerializeField]
+    private float angleLimit = 60;
 
 	// Use this for initialization
 	void Start () {
@@ -17,8 +18,9 @@ public class scr_CameraFPSRotation : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(transform.rotation.x > -80 && transform.rotation.x < 80)
-		this.transform.Rotate(GetYRot(), 0, 0);
+        Vector3 rot = transform.rotation.eulerAngles + new Vector3(GetYRot(), 0f, 0f);
+        rot.x = ClampAngle(rot.x, -angleLimit, angleLimit);
+        transform.eulerAngles = rot;
         parent.transform.Rotate(0, GetXRot(), 0);
 	}
 
@@ -32,21 +34,11 @@ public class scr_CameraFPSRotation : MonoBehaviour {
 	{
 		return -Input.GetAxis("Mouse Y") * cameraSpeed;
 	}
-}
 
-/*
- * if (transform.eulerAngles.x < minAngle)
-        {
-            print("rotating to " + minAngle);
-            transform.rotation = Quaternion.Euler(new Vector3(minAngle, 0, 0));
-        }
-        if (transform.eulerAngles.x > maxAngle)
-        {
-            print("rotating to " + maxAngle);
-            transform.rotation = Quaternion.Euler(new Vector3(maxAngle, 0, 0));
-        }
-        if (transform.eulerAngles.x + _rotation.x >= minAngle && transform.eulerAngles.x + _rotation.x <= maxAngle)
-        {
-            transform.Rotate(_rotation);
-        }
-   */
+    float ClampAngle(float angle, float from, float to)
+    {
+        if (angle < 0f) angle = 360 + angle;
+        if (angle > 180f) return Mathf.Max(angle, 360 + from);
+        return Mathf.Min(angle, to);
+    }
+}
