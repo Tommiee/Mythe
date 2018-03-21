@@ -6,6 +6,7 @@ public class Inventory : MonoBehaviour
 {
     [SerializeField]
     private List<int> inventory = new List<int>();
+    private List<GameObject> inventoryUseable = new List<GameObject>();
 
     [SerializeField]
     private GameObject canvas;

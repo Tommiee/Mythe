@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(InputManager))]
@@ -73,8 +71,8 @@ public class scr_CharacterController : MonoBehaviour
     {
         if(inputManager.Inventory() != 0)
         {
-            inventoryCam.enabled = true;
-            playerCam.enabled = false;
+            inventoryCam.enabled = !inventoryCam.enabled;
+            playerCam.enabled = !playerCam.enabled;
         }
     }
 
