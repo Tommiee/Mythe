@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(InputManager))]
@@ -66,15 +64,14 @@ public class scr_CharacterController : MonoBehaviour
         }
         speed = Mathf.Clamp(speed, -5, 5);
     }
-
     //These two are required for freezing the movement when opening the inventory.
     //I know it looks odd, but we need these.
     public void Inventory()
     {
-        if(inputManager.Inventory() != 0)
+        if (inputManager.Inventory() != 0)
         {
-            inventoryCam.enabled = true;
-            playerCam.enabled = false;
+            inventoryCam.enabled = !true;
+            playerCam.enabled = !false;
         }
     }
 
