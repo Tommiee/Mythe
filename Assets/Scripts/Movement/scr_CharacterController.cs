@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(InputManager))]
@@ -9,11 +10,7 @@ public class scr_CharacterController : MonoBehaviour
     [SerializeField]
     private GameObject inv;
     private Inventory inventory;
-
-    [SerializeField]
-    private Camera playerCam;
-    [SerializeField]
-    private Camera inventoryCam;
+    private InventoryController invController;
 
     private Rigidbody rb;
     [SerializeField]
@@ -21,22 +18,17 @@ public class scr_CharacterController : MonoBehaviour
 
     [SerializeField]
     private float speed = 5;
-
-    private bool movementLock;
+    [SerializeField]
+    private bool cooldown;
 
     void Start()
     {
-        //Find and add required scripts, if you've forgotten/dont want to add them in the editor.
-        //Not completely necessary, but what the hell, i'm both lazy and forgetful.
-        if (!(inputManager = this.GetComponent<InputManager>()))
-        {
-            inputManager = this.gameObject.AddComponent<InputManager>();
-        }
+        inputManager = GetComponent<InputManager>();
         inventory = inv.GetComponent<Inventory>();
+        invController = inv.GetComponent<InventoryController>();
         rb = GetComponent<Rigidbody>();
 
-        inventoryCam.enabled = false;
-        playerCam.enabled = true;
+        this.GetComponentInChildren<Camera>().enabled = true;
     }
 
     void Update()
@@ -67,16 +59,19 @@ public class scr_CharacterController : MonoBehaviour
 
     //These two are required for freezing the movement when opening the inventory.
     //I know it looks odd, but we need these.
-    public void Inventory()
+    void Inventory()
     {
-        if(inputManager.Inventory() != 0)
+        if (inputManager.Inventory() != 0 && !cooldown)
         {
-            inventoryCam.enabled = !inventoryCam.enabled;
-            playerCam.enabled = !playerCam.enabled;
+            inv.GetComponentInChildren<Camera>().enabled = true;
+            this.GetComponentInChildren<Camera>().enabled = false;
+            invController.enabled = true;
+            invController.StartCoroutine(InventoryCoolDown());
+            this.enabled = false;
         }
     }
 
-    public void PickUp(float range)
+    void PickUp(float range)
     {
         //Finds the camera, and it's forward facing vector.
         Camera cam = gameObject.GetComponentInChildren<Camera>();
@@ -85,7 +80,7 @@ public class scr_CharacterController : MonoBehaviour
 
         if (Physics.Raycast(cam.transform.position, fwd, out hit, range))
         {
-            if (inputManager.Interact() != 0)
+            if (inputManager.Interact() != 0 && !cooldown)
             {
                 Collectable collectable;
                 if (collectable = hit.transform.gameObject.GetComponent<Collectable>())
@@ -97,5 +92,11 @@ public class scr_CharacterController : MonoBehaviour
                 }
             }
         }
+    }
+    public IEnumerator InventoryCoolDown()
+    {
+        cooldown = true;
+        yield return new WaitForSeconds(1f);
+        cooldown = false;
     }
 }

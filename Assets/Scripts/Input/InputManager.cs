@@ -24,6 +24,6 @@ public class InputManager : MonoBehaviour
     }
     public float Inventory()
     {
-        return Input.GetAxisRaw(Strings.Movement.INVENTORY);
+        return Input.GetAxis(Strings.Movement.INVENTORY);
     }
 }
