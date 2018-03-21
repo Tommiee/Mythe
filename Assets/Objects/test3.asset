@@ -9,8 +9,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 689626b2f5b55484c8a21ee415307414, type: 3}
-  m_Name: test
+  m_Name: test3
   m_EditorClassIdentifier: 
-  name: stok
-  description: msichien kanikhem aansteken
-  id: 3
+  name: sdadsa
+  description: sadasdsa
+  id: 0

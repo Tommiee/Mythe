@@ -1,65 +1,100 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class scr_CharacterController : MonoBehaviour {
-    private scr_InputManager inputManager;
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(InputManager))]
+public class scr_CharacterController : MonoBehaviour
+{
+    private InputManager inputManager;
+
     [SerializeField]
-    private float inputSpeed = 5;
+    private GameObject inv;
+    private Inventory inventory;
+
     [SerializeField]
-    private float sprintMultiplier = 2;
-    private float movementSpeed;
+    private Camera playerCam;
+    [SerializeField]
+    private Camera inventoryCam;
+
+    private Rigidbody rb;
+    [SerializeField]
+    private float grabRange = 20f;
+
+    [SerializeField]
+    private float speed = 5;
+
+    private bool movementLock;
 
     void Start()
     {
-        if (!(inputManager = this.GetComponent<scr_InputManager>()))
+        //Find and add required scripts, if you've forgotten/dont want to add them in the editor.
+        //Not completely necessary, but what the hell, i'm both lazy and forgetful.
+        if (!(inputManager = this.GetComponent<InputManager>()))
         {
-            inputManager = this.gameObject.AddComponent<scr_InputManager>();
+            inputManager = this.gameObject.AddComponent<InputManager>();
         }
+        inventory = inv.GetComponent<Inventory>();
+        rb = GetComponent<Rigidbody>();
+
+        inventoryCam.enabled = false;
+        playerCam.enabled = true;
     }
 
     void Update()
     {
-        Walking();
-        if (inputManager.F()) {
-            GameObject grabbed = PickUp();
-            Debug.Log(grabbed);
-        }
+        Walk();
+        Inventory();
+        PickUp(grabRange);
     }
 
-    void Walking()
+    void Walk()
     {
-        Vector3 moveVector = new Vector3();
-        movementSpeed = inputSpeed;
+        Vector3 movHorizontal = this.transform.right * inputManager.XMov();
+        Vector3 movVertical = this.transform.forward * inputManager.ZMov();
+        Vector3 velocity = (movHorizontal + movVertical).normalized * speed;
+        bool moving = inputManager.ZMov() != 0 || inputManager.XMov() != 0;
 
-        if (inputManager.Shift()) {
-            movementSpeed = inputSpeed * sprintMultiplier;
+        if (velocity != Vector3.zero)
+        {
+            rb.MovePosition(transform.position + velocity * Time.fixedDeltaTime);
         }
-        if (inputManager.Up()) {
-            moveVector += this.transform.forward;
+        if (moving) { speed += 0.2f; }
+        else if (!moving)
+        {
+            speed = Mathf.Lerp(speed, 0f, 20 * Time.deltaTime);
         }
-        if (inputManager.Down()) {
-            moveVector -= this.transform.forward;
+        speed = Mathf.Clamp(speed, -5, 5);
+    }
+    //These two are required for freezing the movement when opening the inventory.
+    //I know it looks odd, but we need these.
+    public void Inventory()
+    {
+        if (inputManager.Inventory() != 0)
+        {
+            inventoryCam.enabled = !true;
+            playerCam.enabled = !false;
         }
-        if (inputManager.Right()) {
-            moveVector += this.transform.right;
-        }
-        if (inputManager.Left()){
-            moveVector -= this.transform.right;
-        }
-        moveVector.Normalize();
-        this.transform.position += (moveVector * Time.deltaTime * movementSpeed);
     }
 
-    GameObject PickUp() {
+    public void PickUp(float range)
+    {
+        //Finds the camera, and it's forward facing vector.
         Camera cam = gameObject.GetComponentInChildren<Camera>();
         Vector3 fwd = cam.transform.TransformDirection(Vector3.forward);
         RaycastHit hit;
 
-        if (Physics.Raycast(cam.transform.position, fwd, out hit, 100f))
+        if (Physics.Raycast(cam.transform.position, fwd, out hit, range))
         {
-            return hit.transform.gameObject;
-        } else { return null; }
-    }
+            if (inputManager.Interact() != 0)
+            {
+                Collectable collectable;
+                if (collectable = hit.transform.gameObject.GetComponent<Collectable>())
+                {
+                    ObjectData obj = hit.transform.gameObject.GetComponent<Collectable>().obj;
 
+                    inventory.CollectedItem(obj);
+                    Destroy(hit.transform.gameObject);
+                }
+            }
+        }
+    }
 }

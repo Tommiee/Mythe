@@ -13,8 +13,6 @@ public class Inventory : MonoBehaviour
 
     private int differentItems = 16;
 
-    public GameObject item;
-
     void Start()
     {
         showObject = canvas.GetComponent<ShowObject>();
@@ -23,16 +21,12 @@ public class Inventory : MonoBehaviour
         {
             inventory.Add(0);
         }
-
-        CollectedItem(item);
     }
 
-    public void CollectedItem(GameObject item)
+    public void CollectedItem(ObjectData item)
     {
-        ObjectData obj = item.GetComponent<Collectable>().obj;
-
-        showObject.ShowCollectable(obj);
-        inventory[obj.id] += 1;
+        showObject.ShowCollectable(item);
+        inventory[item.id] += 1;
     }
 	
 }
