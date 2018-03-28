@@ -1,45 +1,35 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(InventoryEngine))]
 public class InventoryController : MonoBehaviour
 {
-    private Inventory inv;
-    private InputManager inputManager;
+    private InventoryEngine inventoryEngine;
 
     [SerializeField]
-    private GameObject pl;
-    private scr_CharacterController player;
+    private List<int> inventory = new List<int>();
+    private List<GameObject> inventoryUseable = new List<GameObject>();
+
     [SerializeField]
-    private bool cooldown;
+    private GameObject player;
+
+    private int differentItems = 16;
 
     void Start()
     {
         this.GetComponentInChildren<Camera>().enabled = false;
         this.enabled = false;
 
-        player = pl.GetComponent<scr_CharacterController>();
-        inv = this.GetComponent<Inventory>();
-        inputManager = this.gameObject.AddComponent<InputManager>();
+        this.GetComponent<InventoryController>();
+
+        for (var i = 0; i < differentItems; i++)
+        {
+            inventory.Add(0);
+        }
     }
     void Update()
     {
-        Inventory();
-    }
-    void Inventory()
-    {
-        if (inputManager.Inventory() != 0 && !cooldown)
-        {
-            pl.GetComponentInChildren<Camera>().enabled = true;
-            this.GetComponentInChildren<Camera>().enabled = false;
-            player.enabled = true;
-            player.StartCoroutine(InventoryCoolDown());
-            this.enabled = false;
-        }
-    }
-    public IEnumerator InventoryCoolDown()
-    {
-        cooldown = true;
-        yield return new WaitForSeconds(1f);
-        cooldown = false;
+        inventoryEngine.SwitchController(player, this.gameObject);
     }
 }
