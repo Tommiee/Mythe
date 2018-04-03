@@ -19,9 +19,9 @@ public class InventoryController : MonoBehaviour
     void Start()
     {
         this.GetComponentInChildren<Camera>().enabled = false;
-        this.enabled = false;
+        this.gameObject.SetActive(false);
 
-        this.GetComponent<InventoryController>();
+        inventoryEngine = this.GetComponent<InventoryEngine>();
 
         for (var i = 0; i < differentItems; i++)
         {
@@ -30,6 +30,7 @@ public class InventoryController : MonoBehaviour
     }
     void Update()
     {
+        print("hi");
         inventoryEngine.SwitchController(player, this.gameObject);
     }
 }
