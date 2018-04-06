@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerEngine))]
+//[RequireComponent(typeof(PlayerEngine))]
+[RequireComponent(typeof(FirstPerson))]
 public class PlayerController : MonoBehaviour
 {
     private PlayerEngine playerEngine;
+    private FirstPerson firstPerson;
+    private SwitchController switchController;
     private InputManager inputManager;
 
     [SerializeField]
     private GameObject inventory;
     [SerializeField]
-    private float grabRange = 2f;
+    private float grabRange = .1f;
     [SerializeField]
     private float speed = 5;
     [SerializeField]
@@ -21,8 +24,12 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        this.GetComponentInChildren<Camera>().enabled = true;
+
         inputManager = GetComponent<InputManager>();
         playerEngine = GetComponent<PlayerEngine>();
+        firstPerson = GetComponent<FirstPerson>();
+        switchController = GetComponent<SwitchController>();
     }
 
     void Update()
@@ -34,9 +41,11 @@ public class PlayerController : MonoBehaviour
         Vector3 rotation = new Vector3(0f, inputManager.YRot(), 0f) * sensitivity;
         float cameraRotationX = inputManager.XRot() * sensitivity;
 
-        playerEngine.PeformMovement(speed, velocity);
-        playerEngine.PerformRotation(rotation, cameraRotationX, camRotLimit);
-        playerEngine.PeformCollectItem(grabRange, inputManager.FPress());
-        playerEngine.PefromSwitchController(inventory, this.gameObject, inputManager.TabPress());
+        firstPerson.Movement(speed, velocity);
+        firstPerson.Rotation(rotation, cameraRotationX, camRotLimit);
+
+        playerEngine.CollectItem(grabRange, inputManager.FPress());
+
+        switchController.SwitchControl(inventory, this.gameObject, inputManager.TabPress());
     }
 }

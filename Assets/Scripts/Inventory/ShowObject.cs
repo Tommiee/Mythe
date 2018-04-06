@@ -17,7 +17,7 @@ public class ShowObject : MonoBehaviour
     [SerializeField]
     private List<ObjectData> itemData = new List<ObjectData>();
 
-    private float waitTime = 10f;
+    private float waitTime = 4f;
     private float fadeTimer = 2f;
 
     private IEnumerator DisplayIEnumerator;
