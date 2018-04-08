@@ -4,6 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Object", menuName = "Object")]
 public class ObjectData : ScriptableObject
 {
+    public GameObject model;
+
     public new string name;
     public string description;
 

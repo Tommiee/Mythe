@@ -4,7 +4,19 @@ using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject canvas;
+    private ShowObject showObject;
 
+    [SerializeField]
+    private GameObject inventory;
+    private Inventory invScript;
+
+    void Start()
+    {
+        showObject = canvas.GetComponent<ShowObject>();
+        invScript = inventory.GetComponent<Inventory>();
+    }
 
     public void CollectItem(float range, bool when)
     {
@@ -23,7 +35,7 @@ public class Pickup : MonoBehaviour
 
                     showObject.ShowCollectable(obj);
 
-                    invScript.AddDataTo(obj);
+                    invScript.AddToInventory(obj);
                     invScript.DisplayItem(obj);
 
                     Destroy(hit.transform.gameObject);

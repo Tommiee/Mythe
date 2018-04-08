@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//[RequireComponent(typeof(PlayerEngine))]
 [RequireComponent(typeof(FirstPerson))]
 public class PlayerController : MonoBehaviour
 {
-    private PlayerEngine playerEngine;
     private FirstPerson firstPerson;
-    private SwitchController switchController;
+    private Pickup pickup;
     private InputManager inputManager;
+    private Inventory inventory;
 
     [SerializeField]
-    private GameObject inventory;
+    private GameObject inventoryGO;
     [SerializeField]
     private float grabRange = .1f;
     [SerializeField]
@@ -22,30 +21,60 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float sensitivity = 1;
 
+    private enum PlayerState {PLAYER, INVENTORY, PAUSE};
+    private PlayerState currentState;
+
     void Start()
     {
         this.GetComponentInChildren<Camera>().enabled = true;
 
         inputManager = GetComponent<InputManager>();
-        playerEngine = GetComponent<PlayerEngine>();
         firstPerson = GetComponent<FirstPerson>();
-        switchController = GetComponent<SwitchController>();
+        pickup = GetComponent<Pickup>();
+        inventory = inventoryGO.GetComponent<Inventory>();
+
+        currentState = PlayerState.PLAYER;
     }
 
     void Update()
     {
-        Vector3 movHorizontal = this.transform.right * inputManager.XMov();
-        Vector3 movVertical = this.transform.forward * inputManager.ZMov();
-        Vector3 velocity = (movHorizontal + movVertical).normalized * speed;
+        switch (currentState)
+        {
+            case PlayerState.PLAYER:
 
-        Vector3 rotation = new Vector3(0f, inputManager.YRot(), 0f) * sensitivity;
-        float cameraRotationX = inputManager.XRot() * sensitivity;
+                Vector3 movHorizontal = this.transform.right * inputManager.XMov();
+                Vector3 movVertical = this.transform.forward * inputManager.ZMov();
+                Vector3 velocity = (movHorizontal + movVertical).normalized * speed;
 
-        firstPerson.Movement(speed, velocity);
-        firstPerson.Rotation(rotation, cameraRotationX, camRotLimit);
+                Vector3 rotation = new Vector3(0f, inputManager.YRot(), 0f) * sensitivity;
+                float cameraRotationX = inputManager.XRot() * sensitivity;
 
-        playerEngine.CollectItem(grabRange, inputManager.FPress());
+                firstPerson.Movement(speed, velocity);
+                firstPerson.Rotation(rotation, cameraRotationX, camRotLimit);
+                pickup.CollectItem(grabRange, inputManager.FPress());
 
-        switchController.SwitchControl(inventory, this.gameObject, inputManager.TabPress());
+                SwitchController(inputManager.TabPress(), inventoryGO, gameObject, PlayerState.INVENTORY);
+
+                break;
+            case PlayerState.INVENTORY:
+
+                inventory.Crafting(inputManager.FPress());
+                SwitchController(inputManager.TabPress(), gameObject, inventoryGO, PlayerState.PLAYER);
+
+                break;
+            case PlayerState.PAUSE:
+
+                break;
+        }
+    }
+
+    void SwitchController(bool input, GameObject to, GameObject from, PlayerState state)
+    {
+        if (input)
+        {
+            to.GetComponentInChildren<Camera>().enabled = true;
+            from.GetComponentInChildren<Camera>().enabled = false;
+            currentState = state;
+        }
     }
 }
