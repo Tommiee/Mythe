@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private Pickup pickup;
     private InputManager inputManager;
     private Inventory inventory;
+    private Craft craft;
 
     [SerializeField]
     private GameObject inventoryGO;
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour
         firstPerson = GetComponent<FirstPerson>();
         pickup = GetComponent<Pickup>();
         inventory = inventoryGO.GetComponent<Inventory>();
+        craft = inventoryGO.GetComponent<Craft>();
 
         currentState = PlayerState.PLAYER;
     }
@@ -58,7 +60,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case PlayerState.INVENTORY:
 
-                inventory.Crafting(inputManager.FPress());
+                craft.Crafting(inputManager.FPress());
                 SwitchController(inputManager.TabPress(), gameObject, inventoryGO, PlayerState.PLAYER);
 
                 break;

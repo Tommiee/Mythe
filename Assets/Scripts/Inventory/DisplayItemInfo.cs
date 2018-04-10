@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShowObject : MonoBehaviour
+public class DisplayItemInfo : MonoBehaviour
 {
     [SerializeField]
     private Text nameText = null;

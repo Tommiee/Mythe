@@ -6,7 +6,7 @@ public class Pickup : MonoBehaviour
 {
     [SerializeField]
     private GameObject canvas;
-    private ShowObject showObject;
+    private DisplayItemInfo showObject;
 
     [SerializeField]
     private GameObject inventory;
@@ -14,7 +14,7 @@ public class Pickup : MonoBehaviour
 
     void Start()
     {
-        showObject = canvas.GetComponent<ShowObject>();
+        showObject = canvas.GetComponent<DisplayItemInfo>();
         invScript = inventory.GetComponent<Inventory>();
     }
 
