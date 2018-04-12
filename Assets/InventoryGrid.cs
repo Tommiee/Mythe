@@ -8,41 +8,61 @@ public class InventoryGrid : MonoBehaviour
     private float rows, colums;
     private float gridSize = 10;
 
-    [SerializeField]
-    private float cubeSize = 1;
+    public Tile[,] gridArray;
+
+    float gridSizeX;
+    float cubeSizeX;
+
+    float gridSizeZ;
+    float cubeSizeZ;
 
     void Start()
     {
-        print(GetNearestPointOnGrid(new Vector3()));
+        CreateGrid();
+
+        gridSizeX = 10 * transform.localScale.x;
+        cubeSizeX = 1 * (gridSizeX / rows);
+
+        gridSizeZ = 10 * transform.localScale.z;
+        cubeSizeZ = 1 * (gridSizeZ / colums);
     }
-     
-    public Vector3 GetNearestPointOnGrid(Vector3 position)
+
+    void CreateGrid()
     {
-        position -= transform.position;
+        for (int x = 0; x < rows; x++)
+        {
+            for (int z = 0; z < colums; z++)
+            {
+                float positionX = transform.position.x + x * (gridSizeX / rows) - gridSizeX / 2 + cubeSizeX / 2;
+                float positionY = transform.position.y;
+                float positionZ = transform.position.z + z * (gridSizeZ / colums) - gridSizeZ / 2 + cubeSizeZ / 2;
 
-        int xCount = Mathf.RoundToInt(position.x);
-        int yCount = Mathf.RoundToInt(position.y);
-        int zCount = Mathf.RoundToInt(position.z);
-
-        Vector3 result = new Vector3(
-            (float)xCount,
-            (float)yCount,
-            (float)zCount);
-
-        result += transform.position;
-
-        return result;
+                gridArray[x, z] = new Tile(positionX, positionY, positionZ);
+                //                Instantiate(cube, new Vector3(gridArray[0, 0].x, gridArray[0, 0].y, gridArray[0, 0].z), Quaternion.identity);
+            }
+        }
     }
 
-
+    //temp
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
+
         for (float x = 0; x < rows; x++)
         {
             for (float z = 0; z < colums; z++)
             {
-                Gizmos.DrawWireCube((new Vector3(transform.position.x - gridSize / 2 + cubeSize/2 + x, transform.position.y, transform.position.z - gridSize / 2 + cubeSize/2 + z)), new Vector3(cubeSize, cubeSize, cubeSize));
+                float gridSizeX = 10 * transform.localScale.x;
+                float cubeSizeX = 1 * (gridSizeX / rows);
+
+                float gridSizeZ = 10 * transform.localScale.z;
+                float cubeSizeZ = 1 * (gridSizeZ / colums);
+
+                float positionX = transform.position.x + x * (gridSizeX / rows) - gridSizeX / 2 + cubeSizeX / 2;
+                float positionY = transform.position.y;
+                float positionZ = transform.position.z + z * (gridSizeZ / colums) - gridSizeZ / 2 + cubeSizeZ / 2;
+                
+                Gizmos.DrawWireCube(new Vector3(positionX, positionY, positionZ), new Vector3(cubeSizeX, 1, cubeSizeZ));
             }
         }
     }
