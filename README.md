@@ -1,2 +1,0 @@
-# Mythe
-Mythe github folder
