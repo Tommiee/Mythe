@@ -1,0 +1,166 @@
+fileFormatVersion: 2
+guid: 44706f66477a6214bb2942109f00c1bf
+timeCreated: 1521736250
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Behuizing
+    100002: draaiknop
+    100004: //RootNode
+    100006: Glas
+    100008: Hendel1
+    100010: Lont
+    100012: schoorsteen
+    100014: Sleutel
+    400000: Behuizing
+    400002: draaiknop
+    400004: //RootNode
+    400006: Glas
+    400008: Hendel1
+    400010: Lont
+    400012: schoorsteen
+    400014: Sleutel
+    2100000: BehuizingMat
+    2100002: draaiknopMat
+    2100004: GlasMat
+    2100006: Hendel1Mat
+    2100008: LontMat
+    2100010: schoorsteenMat
+    2100012: SleutelMat
+    2300000: Behuizing
+    2300002: draaiknop
+    2300004: Glas
+    2300006: Hendel1
+    2300008: Lont
+    2300010: schoorsteen
+    2300012: Sleutel
+    3300000: Behuizing
+    3300002: draaiknop
+    3300004: Glas
+    3300006: Hendel1
+    3300008: Lont
+    3300010: schoorsteen
+    3300012: Sleutel
+    4300000: Behuizing
+    4300002: draaiknop
+    4300004: Glas
+    4300006: Hendel1
+    4300008: Lont
+    4300010: schoorsteen
+    4300012: Sleutel
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BehuizingMat
+    second: {fileID: 2100000, guid: 2b9de43e6a072d548a22bccf3bb36852, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GlasMat
+    second: {fileID: 2100000, guid: aa2dbfd29659c4e4ba5e70d8b8bf3249, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hendel1Mat
+    second: {fileID: 2100000, guid: 3cfd9c05db17817459f53fbc4074e884, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LontMat
+    second: {fileID: 2100000, guid: e40259079b2c54c4891d6759e297a9a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SleutelMat
+    second: {fileID: 2100000, guid: 755f6c05d41fd3545b8d9083dead0929, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: draaiknopMat
+    second: {fileID: 2100000, guid: fad704af7fcdd0a43ba3308e71aa4cae, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: schoorsteenMat
+    second: {fileID: 2100000, guid: efe1f3d48623b034c8d39dde18207457, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
