@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject inventory;
     [SerializeField]
-    private float grabRange = 20f;
+    private float grabRange = .1f;
     [SerializeField]
     private float speed = 5;
     [SerializeField]

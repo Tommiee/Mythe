@@ -5,11 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(InventoryEngine))]
 public class InventoryController : MonoBehaviour
 {
-    private InventoryEngine inventoryEngine;
-
+    public InventoryEngine inventoryEngine;
+    //temp public
     [SerializeField]
-    private List<int> inventory = new List<int>();
+    public List<int> inventory = new List<int>();
     private List<GameObject> inventoryUseable = new List<GameObject>();
+    // temp public 
+    [SerializeField]
+    public List<GameObject> inventoryModels = new List<GameObject>();
 
     [SerializeField]
     private GameObject player;
@@ -18,10 +21,7 @@ public class InventoryController : MonoBehaviour
 
     void Start()
     {
-        this.GetComponentInChildren<Camera>().enabled = false;
-        this.enabled = false;
-
-        this.GetComponent<InventoryController>();
+        inventoryEngine = GetComponent<InventoryEngine>();
 
         for (var i = 0; i < differentItems; i++)
         {
@@ -31,5 +31,7 @@ public class InventoryController : MonoBehaviour
     void Update()
     {
         inventoryEngine.SwitchController(player, this.gameObject);
+//        inventoryEngine.AddDataTo();
+//        inventoryEngine.DisplayItem();
     }
 }

@@ -7,6 +7,14 @@ public class PlayerEngine : MonoBehaviour
 {
     private Rigidbody rb;
 
+    [SerializeField]
+    private GameObject canvas;
+    private ShowObject showObject;
+
+    [SerializeField]
+    private GameObject inventory;
+    private InventoryController inventoryController;
+
     float currentCamRotX = 0;
 
     void Start()
@@ -15,6 +23,8 @@ public class PlayerEngine : MonoBehaviour
         this.enabled = true;
 
         rb = GetComponent<Rigidbody>();
+        showObject = canvas.GetComponent<ShowObject>();
+        inventoryController = inventory.GetComponent<InventoryController>();
     }
 
     public void PeformMovement(float speed, Vector3 velocity)
@@ -49,7 +59,7 @@ public class PlayerEngine : MonoBehaviour
         if (when)
         {
             to.GetComponentInChildren<Camera>().enabled = true;
-            to.SetActive(true);
+            to.gameObject.SetActive(true);
 
             from.GetComponentInChildren<Camera>().enabled = false;
             from.gameObject.SetActive(false);
@@ -70,6 +80,10 @@ public class PlayerEngine : MonoBehaviour
                 if (collectable = hit.transform.gameObject.GetComponent<Collectable>())
                 {
                     ObjectData obj = hit.transform.gameObject.GetComponent<Collectable>().obj;
+
+                    showObject.ShowCollectable(obj);
+                    inventoryController.inventoryEngine.AddDataTo(obj, inventoryController.inventory);
+                    inventoryController.inventoryEngine.DisplayItem(obj, inventoryController.inventoryModels);
 
                     Destroy(hit.transform.gameObject);
                 }

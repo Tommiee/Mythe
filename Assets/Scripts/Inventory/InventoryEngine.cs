@@ -10,6 +10,8 @@ public class InventoryEngine : MonoBehaviour
     void Start()
     {
         inputManager = GetComponent<InputManager>();
+
+        this.GetComponentInChildren<Camera>().enabled = false;
     }
 
     public void AddDataTo(ObjectData item, List<int> list)
@@ -17,15 +19,20 @@ public class InventoryEngine : MonoBehaviour
         list[item.id] += 1;
     }
 
+    public void DisplayItem(ObjectData item, List<GameObject> list)
+    {
+
+        list[item.id].SetActive(true);
+    }
+
     public void SwitchController(GameObject to, GameObject from)
     {
-        if (inputManager.FPress())
+        if (inputManager.TabPress())
         {
             to.GetComponentInChildren<Camera>().enabled = true;
-            to.SetActive(true);
+            to.gameObject.SetActive(true);
 
             from.GetComponentInChildren<Camera>().enabled = false;
-            from.gameObject.SetActive(false);
         }
     }
 }
