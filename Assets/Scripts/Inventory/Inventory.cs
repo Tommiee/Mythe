@@ -7,24 +7,29 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private List<int> inventory = new List<int>();
     private List<GameObject> inventoryUseable = new List<GameObject>();
-    //temp
-    [SerializeField]
-    private List<GameObject> invModels = new List<GameObject>();
 
     [SerializeField]
     private GameObject canvas;
     private DisplayItemInfo showObject;
+    //temp public
+    public InventoryGrid inventoryGrid;
 
     private int differentItems = 16;
 
     void Start()
     {
         showObject = canvas.GetComponent<DisplayItemInfo>();
+        inventoryGrid = GetComponent<InventoryGrid>();
 
         for(var i = 0; i < differentItems; i++)
         {
             inventory.Add(0);
         }
+    }
+
+    public void Instantiateitem(ObjectData item)
+    {
+        Instantiate(item.model, inventoryGrid.GetPosInv(), Quaternion.identity);
     }
 
     public void AddToInventory(ObjectData item)
@@ -37,15 +42,4 @@ public class Inventory : MonoBehaviour
         inventory[item.id] -= 1;
     }
 
-    public void DisplayItem(ObjectData item)
-    {
-        invModels[item.id].SetActive(true);
-    }
-
-    public void CollectedItem(ObjectData item)
-    {
-        showObject.ShowCollectable(item);
-        inventory[item.id] += 1;
-    }
-	
 }

@@ -24,7 +24,7 @@ public class Pickup : MonoBehaviour
         Vector3 fwd = cam.transform.TransformDirection(Vector3.forward);
         RaycastHit hit;
 
-        if (Physics.Raycast(cam.transform.position, fwd, out hit, 4f))
+        if (Physics.Raycast(cam.transform.position, fwd, out hit, 10f))
         {
             if (when)
             {
@@ -36,7 +36,7 @@ public class Pickup : MonoBehaviour
                     showObject.ShowCollectable(obj);
 
                     invScript.AddToInventory(obj);
-                    invScript.DisplayItem(obj);
+                    invScript.Instantiateitem(obj);
 
                     Destroy(hit.transform.gameObject);
                 }

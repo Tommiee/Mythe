@@ -78,7 +78,7 @@ public class Craft : MonoBehaviour
             if (input)
             {
                 ToggleCraftInventory(hit.transform.gameObject);
-                CraftItem(hit.transform.gameObject);
+                Crafted(hit.transform.gameObject);
             }
         }
     }
@@ -93,30 +93,46 @@ public class Craft : MonoBehaviour
                 inventory.AddToInventory(collectable.obj);
                 RemoveCraftInventory(gameObject);
                 collectable.inCraft = false;
+                gameObject.transform.position = inventory.inventoryGrid.GetPosInv();
             }
             else if (!collectable.inCraft)
             {
                 AddCraftInventory(gameObject);
                 inventory.RemoveFromInventory(collectable.obj);
                 collectable.inCraft = true;
+                gameObject.transform.position = inventory.inventoryGrid.GetPosCraft();
             }
             CheckAllRecipes();
             CraftButton();
         }
     }
-    void CraftItem(GameObject gameObject)
+    void Crafted(GameObject gameObject)
     {
         if (gameObject.name == "CraftButton")
         {
-            Instantiate(allCraftingRecipes[craftableRecipe].model);
+            CraftItem();
             for (int i = 0; i < crafting.Count; i++)
-            {
-                crafting[i].SetActive(false);
+            { 
+                Destroy(crafting[i]);
             }
+
             crafting.Clear();
             CheckAllRecipes();
             CraftButton();
         }
+    }
+
+    void CraftItem()
+    {
+        GameObject newItem = Instantiate(allCraftingRecipes[craftableRecipe].model, inventory.inventoryGrid.GetPosInv(), Quaternion.identity);
+        Collectable collecable = newItem.GetComponent<Collectable>();
+        collecable.obj = new ObjectData
+        {
+            name = allCraftingRecipes[craftableRecipe].name,
+            description = allCraftingRecipes[craftableRecipe].description,
+            id = allCraftingRecipes[craftableRecipe].id,
+            model = allCraftingRecipes[craftableRecipe].model
+        };
     }
 
     void CraftButton()

@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 689626b2f5b55484c8a21ee415307414, type: 3}
   m_Name: 3
   m_EditorClassIdentifier: 
-  model: {fileID: 0}
   name: stok
   description: msichien kanikhem aansteken
   id: 3
+  model: {fileID: 1161820097690464, guid: 42f1698a50669aa439c33f77b91b91e8, type: 2}

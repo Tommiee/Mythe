@@ -5,7 +5,7 @@ using UnityEngine;
 public class InventoryGrid : MonoBehaviour
 {
     [SerializeField]
-    private float rows, colums;
+    private int rows, colums;
     private float gridSize = 10;
 
     public Tile[,] gridArray;
@@ -16,20 +16,27 @@ public class InventoryGrid : MonoBehaviour
     float gridSizeZ;
     float cubeSizeZ;
 
+    private int[] inventoryPos;
+    private int[] craftPos;
+
     public GameObject cube;
 
     void Start()
     {
-        CreateGrid();
+        gridArray = new Tile[rows, colums];
+
+        inventoryPos = new int[] { 1, 2, 3, 4, 8, 9, 10, 11 };
 
         gridSizeX = 10 * transform.localScale.x;
         cubeSizeX = 1 * (gridSizeX / rows);
 
         gridSizeZ = 10 * transform.localScale.z;
         cubeSizeZ = 1 * (gridSizeZ / colums);
+
+        CreateGrid();
     }
 
-    void CreateGrid()
+    private void CreateGrid()
     {
         for (int x = 0; x < rows; x++)
         {
@@ -40,16 +47,40 @@ public class InventoryGrid : MonoBehaviour
                 float positionZ = transform.position.z + z * (gridSizeZ / colums) - gridSizeZ / 2 + cubeSizeZ / 2;
 
                 gridArray[x, z] = new Tile(positionX, positionY, positionZ);
-                Instantiate(cube, new Vector3(gridArray[0, 0].x, gridArray[0, 0].y, gridArray[0, 0].z), Quaternion.identity);
             }
         }
     }
 
-    //temp
+    public Vector3 GetPosInv()
+    {
+        int posX = inventoryPos[Random.Range(0, inventoryPos.Length)];
+        int posY = inventoryPos[Random.Range(0, inventoryPos.Length)];
+
+        while(gridArray[posX, posY].full)
+        {
+            posX = inventoryPos[Random.Range(0, inventoryPos.Length)];
+            posY = inventoryPos[Random.Range(0, inventoryPos.Length)];
+        }
+        return new Vector3(gridArray[posX, posY].x, gridArray[posX, posY].y, gridArray[posX, posY].z);
+    }
+
+    public Vector3 GetPosCraft()
+    {
+        int posX = Random.Range(5, 7);
+        int posY = Random.Range(5, 7);
+
+        while (gridArray[posX, posY].full)
+        {
+            posX = Random.Range(5, 7); ;
+            posY = Random.Range(5, 7); ;
+        }
+        return new Vector3(gridArray[posX, posY].x, gridArray[posX, posY].y, gridArray[posX, posY].z);
+    }
+
+    /*temp
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-
         for (float x = 0; x < rows; x++)
         {
             for (float z = 0; z < colums; z++)
@@ -68,4 +99,5 @@ public class InventoryGrid : MonoBehaviour
             }
         }
     }
+    */
 }
