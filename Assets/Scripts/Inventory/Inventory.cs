@@ -6,11 +6,7 @@ public class Inventory : MonoBehaviour
 {
     [SerializeField]
     private List<int> inventory = new List<int>();
-    private List<GameObject> inventoryUseable = new List<GameObject>();
 
-    [SerializeField]
-    private GameObject canvas;
-    private DisplayItemInfo showObject;
     //temp public
     public InventoryGrid inventoryGrid;
 
@@ -18,7 +14,6 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
-        showObject = canvas.GetComponent<DisplayItemInfo>();
         inventoryGrid = GetComponent<InventoryGrid>();
 
         for(var i = 0; i < differentItems; i++)

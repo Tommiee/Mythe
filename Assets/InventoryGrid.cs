@@ -6,20 +6,17 @@ public class InventoryGrid : MonoBehaviour
 {
     [SerializeField]
     private int rows, colums;
-    private float gridSize = 10;
 
-    public Tile[,] gridArray;
+    private Tile[,] gridArray;
 
-    float gridSizeX;
-    float cubeSizeX;
+    private float gridSizeX;
+    private float cubeSizeX;
 
-    float gridSizeZ;
-    float cubeSizeZ;
+    private float gridSizeZ;
+    private float cubeSizeZ;
 
     private int[] inventoryPos;
     private int[] craftPos;
-
-    public GameObject cube;
 
     void Start()
     {

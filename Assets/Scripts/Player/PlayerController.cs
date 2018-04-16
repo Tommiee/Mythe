@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
     private FirstPerson firstPerson;
     private Pickup pickup;
     private InputManager inputManager;
-    private Inventory inventory;
     private Craft craft;
 
     [SerializeField]
@@ -37,7 +36,6 @@ public class PlayerController : MonoBehaviour
         inputManager = GetComponent<InputManager>();
         firstPerson = GetComponent<FirstPerson>();
         pickup = GetComponent<Pickup>();
-        inventory = inventoryGO.GetComponent<Inventory>();
         craft = inventoryGO.GetComponent<Craft>();
 
         currentState = PlayerState.PLAYER;
