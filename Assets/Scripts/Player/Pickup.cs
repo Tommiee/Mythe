@@ -24,7 +24,7 @@ public class Pickup : MonoBehaviour
         Vector3 fwd = cam.transform.TransformDirection(Vector3.forward);
         RaycastHit hit;
 
-        if (Physics.Raycast(cam.transform.position, fwd, out hit, 10f))
+        if (Physics.Raycast(cam.transform.position, fwd, out hit, 12f))
         {
             if (when)
             {

@@ -61,6 +61,7 @@ public class InventoryGrid : MonoBehaviour
             posX = inventoryPos[Random.Range(0, inventoryPos.Length)];
             posY = inventoryPos[Random.Range(0, inventoryPos.Length)];
         }
+//        gridArray[posX, posY].full = true;
         return new Vector3(gridArray[posX, posY].x, gridArray[posX, posY].y, gridArray[posX, posY].z);
     }
 
@@ -71,13 +72,14 @@ public class InventoryGrid : MonoBehaviour
 
         while (gridArray[posX, posY].full)
         {
-            posX = Random.Range(5, 7); ;
-            posY = Random.Range(5, 7); ;
+            posX = Random.Range(5, 7);
+            posY = Random.Range(5, 7);
         }
+//        gridArray[posX, posY].full = true;
         return new Vector3(gridArray[posX, posY].x, gridArray[posX, posY].y, gridArray[posX, posY].z);
     }
 
-    /*temp
+    //temp
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
@@ -99,5 +101,5 @@ public class InventoryGrid : MonoBehaviour
             }
         }
     }
-    */
+    
 }

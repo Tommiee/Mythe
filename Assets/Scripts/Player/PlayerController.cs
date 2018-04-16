@@ -48,7 +48,6 @@ public class PlayerController : MonoBehaviour
         switch (currentState)
         {
             case PlayerState.PLAYER:
-
                 Vector3 movHorizontal = this.transform.right * inputManager.XMov();
                 Vector3 movVertical = this.transform.forward * inputManager.ZMov();
                 Vector3 velocity = (movHorizontal + movVertical).normalized * speed;
@@ -65,7 +64,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case PlayerState.INVENTORY:
 
-                craft.Crafting(inputManager.FPress());
+                craft.Crafting(inputManager.MouseClickPress());
                 SwitchController(inputManager.TabPress(), playerCam, inventoryCam, PlayerState.PLAYER);
 
                 break;
