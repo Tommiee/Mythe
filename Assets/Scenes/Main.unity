@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -221,6 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a035b5986144e43ae3e9f49f582240, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 2056491350}
   nameText: {fileID: 1711853803}
   descriptionText: {fileID: 1664096444}
   line: {fileID: 2056636964}
@@ -1052,9 +1053,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40e58d4ff6c948042a459da8ffda3ac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 2056491350}
   inventory: 
-  canvas: {fileID: 265312013}
-  inventoryGrid: {fileID: 0}
 --- !u!114 &2003767697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1084,7 +1084,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rows: 13
   colums: 13
-  cube: {fileID: 1003096461245734, guid: 1b0fad319d1d0374491ebe5a2f3325be, type: 2}
 --- !u!1 &2056491350
 GameObject:
   m_ObjectHideFlags: 0
@@ -1241,8 +1240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed19ab281f86bcd408ea5fcae4af6e27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 265312013}
-  inventory: {fileID: 2003767691}
 --- !u!1 &2056636961
 GameObject:
   m_ObjectHideFlags: 0

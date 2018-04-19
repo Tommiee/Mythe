@@ -5,6 +5,7 @@ using UnityEngine;
 public class Craft : MonoBehaviour
 {
     private Inventory inventory;
+    private InventoryGrid inventoryGrid;
 
     [SerializeField]
     private GameObject craftButton;
@@ -19,6 +20,7 @@ public class Craft : MonoBehaviour
     void Start()
     {
         inventory = GetComponent<Inventory>();
+        inventoryGrid = GetComponent<InventoryGrid>();
     }
 
     void AddCraftInventory(GameObject item)
@@ -93,14 +95,14 @@ public class Craft : MonoBehaviour
                 inventory.AddToInventory(collectable.obj);
                 RemoveCraftInventory(gameObject);
                 collectable.inCraft = false;
-                gameObject.transform.position = inventory.inventoryGrid.GetPosInv();
+                gameObject.transform.position = inventoryGrid.GetPosInv();
             }
             else if (!collectable.inCraft)
             {
                 AddCraftInventory(gameObject);
                 inventory.RemoveFromInventory(collectable.obj);
                 collectable.inCraft = true;
-                gameObject.transform.position = inventory.inventoryGrid.GetPosCraft();
+                gameObject.transform.position = inventoryGrid.GetPosCraft();
             }
             CheckAllRecipes();
             CraftButton();
@@ -124,17 +126,17 @@ public class Craft : MonoBehaviour
 
     void CraftItem()
     {
-        GameObject newItem = Instantiate(allCraftingRecipes[craftableRecipe].model, inventory.inventoryGrid.GetPosInv(), Quaternion.identity);
+        GameObject newItem = Instantiate(allCraftingRecipes[craftableRecipe].model, inventoryGrid.GetPosInv(), Quaternion.identity);
         Collectable collecable = newItem.GetComponent<Collectable>();
-        collecable.obj = new ObjectData
+        collecable.obj = ScriptableObject.CreateInstance<ObjectData>();
         {
-            name = allCraftingRecipes[craftableRecipe].name,
-            description = allCraftingRecipes[craftableRecipe].description,
-            id = allCraftingRecipes[craftableRecipe].id,
-            model = allCraftingRecipes[craftableRecipe].model
-        };
+            collecable.obj.name = allCraftingRecipes[craftableRecipe].name;
+            collecable.obj.description = allCraftingRecipes[craftableRecipe].description;
+            collecable.obj.id = allCraftingRecipes[craftableRecipe].id;
+            collecable.obj.model = allCraftingRecipes[craftableRecipe].model;
+        }
     }
-
+    
     void CraftButton()
     {
         if (craftableRecipe > 0)

@@ -6,6 +6,10 @@ using UnityEngine.UI;
 public class DisplayItemInfo : MonoBehaviour
 {
     [SerializeField]
+    private GameObject player;
+    private Pickup pickUp;
+
+    [SerializeField]
     private Text nameText = null;
 
     [SerializeField]
@@ -25,6 +29,9 @@ public class DisplayItemInfo : MonoBehaviour
 
     void Start()
     {
+        pickUp = player.GetComponent<Pickup>();
+        pickUp.OnCollect += ShowCollectable;
+
         nameText.CrossFadeAlpha(0f, 0f, false);
         line.CrossFadeAlpha(0f, 0f, false);
         descriptionText.CrossFadeAlpha(0f, 0f, false);
