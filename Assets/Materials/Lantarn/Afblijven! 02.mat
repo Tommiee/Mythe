@@ -11,7 +11,7 @@ Material:
   m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION _METALLICGLOSSMAP _NORMALMAP _PARALLAXMAP
     _SPECGLOSSMAP
   m_LightmapFlags: 1
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
   stringTagMap:
@@ -78,5 +78,5 @@ Material:
     - _UVSec: 0
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0.8897059, g: 0.8801411, b: 0.5429823, a: 1}
+    - _Color: {r: 1, g: 0.4758621, b: 0, a: 1}
+    - _EmissionColor: {r: 5, g: 3.8275864, b: 0, a: 1}

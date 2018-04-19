@@ -59,8 +59,7 @@ public class HoldingTheItem : MonoBehaviour {
 		{
 			for (int i = 0; i < proccesedInventory.Count-1; i++)
 			{	
-				if (proccesedInventory[i].GetComponent<Light>().range > proccesedInventory[i+1].GetComponent<Light>().range)
-				{
+				if (proccesedInventory[i].GetComponent<Light>().range > proccesedInventory[i+1].GetComponent<Light>().range) {
 					print(proccesedInventory[i]);
 					SetHoldingItem(proccesedInventory[i]);
 				}	else {
