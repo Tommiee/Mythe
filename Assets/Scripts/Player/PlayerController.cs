@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(FirstPerson))]
+[RequireComponent(typeof(Pickup))]
 public class PlayerController : MonoBehaviour
 {
     private FirstPerson firstPerson;
     private Pickup pickup;
     private InputManager inputManager;
-    private Inventory inventory;
     private Craft craft;
+
+    [SerializeField]
+    private Camera inventoryCam;
+    private Camera playerCam;
 
     [SerializeField]
     private GameObject inventoryGO;
@@ -27,12 +31,12 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        this.GetComponentInChildren<Camera>().enabled = true;
+        playerCam = this.GetComponentInChildren<Camera>();
+        inventoryCam.enabled = false;
 
         inputManager = GetComponent<InputManager>();
         firstPerson = GetComponent<FirstPerson>();
         pickup = GetComponent<Pickup>();
-        inventory = inventoryGO.GetComponent<Inventory>();
         craft = inventoryGO.GetComponent<Craft>();
 
         currentState = PlayerState.PLAYER;
@@ -43,7 +47,6 @@ public class PlayerController : MonoBehaviour
         switch (currentState)
         {
             case PlayerState.PLAYER:
-
                 Vector3 movHorizontal = this.transform.right * inputManager.XMov();
                 Vector3 movVertical = this.transform.forward * inputManager.ZMov();
                 Vector3 velocity = (movHorizontal + movVertical).normalized * speed;
@@ -55,13 +58,13 @@ public class PlayerController : MonoBehaviour
                 firstPerson.Rotation(rotation, cameraRotationX, camRotLimit);
                 pickup.CollectItem(grabRange, inputManager.FPress());
 
-                SwitchController(inputManager.TabPress(), inventoryGO, gameObject, PlayerState.INVENTORY);
+                SwitchController(inputManager.TabPress(), inventoryCam, playerCam, PlayerState.INVENTORY);
 
                 break;
             case PlayerState.INVENTORY:
 
-                craft.Crafting(inputManager.FPress());
-                SwitchController(inputManager.TabPress(), gameObject, inventoryGO, PlayerState.PLAYER);
+                craft.Crafting(inputManager.MouseClickPress());
+                SwitchController(inputManager.TabPress(), playerCam, inventoryCam, PlayerState.PLAYER);
 
                 break;
             case PlayerState.PAUSE:
@@ -70,7 +73,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void SwitchController(bool input, GameObject to, GameObject from, PlayerState state)
+    void SwitchController(bool input, Camera to, Camera from, PlayerState state)
     {
         if (input)
         {

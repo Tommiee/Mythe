@@ -5,17 +5,23 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     [SerializeField]
-    private List<int> inventory = new List<int>();
+    private GameObject player;
+    private Pickup pickUp;
 
     [SerializeField]
-    private GameObject canvas;
-    private ShowObject showObject;
+    private List<int> inventory = new List<int>();
+
+    private InventoryGrid inventoryGrid;
 
     private int differentItems = 16;
 
     void Start()
     {
-        showObject = canvas.GetComponent<ShowObject>();
+        pickUp = player.GetComponent<Pickup>();
+        inventoryGrid = GetComponent<InventoryGrid>();
+
+        pickUp.OnCollect += AddToInventory;
+        pickUp.OnCollect += Instantiateitem;
 
         for(var i = 0; i < differentItems; i++)
         {
@@ -23,10 +29,19 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void CollectedItem(ObjectData item)
+    public void Instantiateitem(ObjectData item)
     {
-        showObject.ShowCollectable(item);
+        Instantiate(item.model, inventoryGrid.GetPosInv(), Quaternion.identity);
+    }
+
+    public void AddToInventory(ObjectData item)
+    {
         inventory[item.id] += 1;
     }
-	
+
+    public void RemoveFromInventory(ObjectData item)
+    {
+        inventory[item.id] -= 1;
+    }
+
 }

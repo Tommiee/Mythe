@@ -9,9 +9,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: Nothing
+  m_Name: nothing
   m_EditorClassIdentifier: Assembly-CSharp::CraftableItem
-  name: 
+  name: nothing
   description: 
   id: 0
+  model: {fileID: 0}
   requiredIds: 

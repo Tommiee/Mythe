@@ -9,8 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 689626b2f5b55484c8a21ee415307414, type: 3}
-  m_Name: test3
+  m_Name: Wood
   m_EditorClassIdentifier: 
-  name: sdadsa
-  description: sadasdsa
-  id: 0
+  name: Wood
+  description: I can use this in many ways
+  id: 1
+  model: {fileID: 1706324394194826, guid: db72854de5664434684a1e9ada44a9df, type: 2}

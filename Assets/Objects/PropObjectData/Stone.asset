@@ -9,8 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 689626b2f5b55484c8a21ee415307414, type: 3}
-  m_Name: tes2
+  m_Name: Stone
   m_EditorClassIdentifier: 
-  name: dsajajajaja
-  description: jjajajajajajajajajjajajjajaja
-  id: 0
+  name: Stone
+  description: I can smack stuff
+  id: 2
+  model: {fileID: 1903486109299836, guid: 6ff3e2fa5606e5b4fa3900630ece6a79, type: 2}

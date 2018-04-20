@@ -8,6 +8,9 @@ public class InputManager : MonoBehaviour
     bool prevInteract;
     bool currInteract;
 
+    bool prevMouse;
+    bool currMouse;
+
     public float ZMov()
     {
         return Input.GetAxisRaw(Strings.Movement.VERTICAL);
@@ -32,6 +35,28 @@ public class InputManager : MonoBehaviour
     {
         return Input.GetAxis(Strings.Movement.INVENTORY);
     }
+    public float MouseClick()
+    {
+        return Input.GetAxis(Strings.Movement.MOUSECLICK);
+    }
+    public bool FPress()
+    {
+        bool press;
+
+        prevInteract = currInteract;
+        currInteract = F() != 0;
+
+        if (!prevInteract && currInteract)
+        {
+            press = true;
+        }
+        else
+        {
+            press = false;
+        }
+
+        return press;
+    }
     public bool TabPress()
     {
         bool press;
@@ -50,14 +75,14 @@ public class InputManager : MonoBehaviour
 
         return press;
     }
-    public bool FPress()
+    public bool MouseClickPress()
     {
         bool press;
 
-        prevInteract = currInteract;
-        currInteract = F() != 0;
+        prevMouse = currMouse;
+        currMouse = MouseClick() != 0;
 
-        if (!prevInteract && currInteract)
+        if (!prevMouse && currMouse)
         {
             press = true;
         }

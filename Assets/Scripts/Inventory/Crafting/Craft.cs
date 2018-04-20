@@ -5,6 +5,7 @@ using UnityEngine;
 public class Craft : MonoBehaviour
 {
     private Inventory inventory;
+    private InventoryGrid inventoryGrid;
 
     [SerializeField]
     private GameObject craftButton;
@@ -19,6 +20,7 @@ public class Craft : MonoBehaviour
     void Start()
     {
         inventory = GetComponent<Inventory>();
+        inventoryGrid = GetComponent<InventoryGrid>();
     }
 
     void AddCraftInventory(GameObject item)
@@ -41,7 +43,6 @@ public class Craft : MonoBehaviour
                 if (allCraftingRecipes[recipe].requiredIds[i] == crafting[g].GetComponent<Collectable>().obj.id)
                 {
                     found++;
-                    print(found);
                 }
             }
         }
@@ -55,7 +56,6 @@ public class Craft : MonoBehaviour
         {
             if (CheckRecipe(i))
             {
-                print(i + "goeie");
                 craftableRecipe = i;
             }
             else if (!CheckRecipe(i))
@@ -74,13 +74,13 @@ public class Craft : MonoBehaviour
         Camera cam = gameObject.GetComponentInChildren<Camera>();
         Ray fwd = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        print(craftableRecipe);
+
         if (Physics.Raycast(fwd, out hit, 6f))
         {
             if (input)
             {
                 ToggleCraftInventory(hit.transform.gameObject);
-                CraftItem(hit.transform.gameObject);
+                Crafted(hit.transform.gameObject);
             }
         }
     }
@@ -95,32 +95,48 @@ public class Craft : MonoBehaviour
                 inventory.AddToInventory(collectable.obj);
                 RemoveCraftInventory(gameObject);
                 collectable.inCraft = false;
+                gameObject.transform.position = inventoryGrid.GetPosInv();
             }
             else if (!collectable.inCraft)
             {
                 AddCraftInventory(gameObject);
                 inventory.RemoveFromInventory(collectable.obj);
                 collectable.inCraft = true;
+                gameObject.transform.position = inventoryGrid.GetPosCraft();
             }
             CheckAllRecipes();
             CraftButton();
         }
     }
-    void CraftItem(GameObject gameObject)
+    void Crafted(GameObject gameObject)
     {
         if (gameObject.name == "CraftButton")
         {
-            Instantiate(allCraftingRecipes[craftableRecipe].model);
+            CraftItem();
             for (int i = 0; i < crafting.Count; i++)
-            {
-                crafting[i].SetActive(false);
+            { 
+                Destroy(crafting[i]);
             }
+
             crafting.Clear();
             CheckAllRecipes();
             CraftButton();
         }
     }
 
+    void CraftItem()
+    {
+        GameObject newItem = Instantiate(allCraftingRecipes[craftableRecipe].model, inventoryGrid.GetPosInv(), Quaternion.identity);
+        Collectable collecable = newItem.GetComponent<Collectable>();
+        collecable.obj = ScriptableObject.CreateInstance<ObjectData>();
+        {
+            collecable.obj.name = allCraftingRecipes[craftableRecipe].name;
+            collecable.obj.description = allCraftingRecipes[craftableRecipe].description;
+            collecable.obj.id = allCraftingRecipes[craftableRecipe].id;
+            collecable.obj.model = allCraftingRecipes[craftableRecipe].model;
+        }
+    }
+    
     void CraftButton()
     {
         if (craftableRecipe > 0)
