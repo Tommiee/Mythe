@@ -5,7 +5,7 @@
 		_Color("Main Color", Color) = (0.5, 0.5, 0.5, 1)
 		_MainTex ("Texture", 2D) = "white" {}
 		_OutlineColor("Outline color", Color) = (0,0,0,1)
-		_OutlineWidth("Outline Width", Range(1.0, 5.0)) = 1.01
+		_OutlineWidth("Outline Width", Range(0, 1.0)) = 1.01
 	}
 	CGINCLUDE 
 	#include "UnityCG.cginc"
@@ -27,7 +27,7 @@
 
 	v2f vert(appdata v)
 	{
-		v.vertex.xyz *= _OutlineWidth;
+		v.vertex.xyz += v.normal.xyz * _OutlineWidth;
 
 		v2f o;
 		o.pos = UnityObjectToClipPos(v.vertex);

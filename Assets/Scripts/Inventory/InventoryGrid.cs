@@ -75,28 +75,4 @@ public class InventoryGrid : MonoBehaviour
 //        gridArray[posX, posY].full = true;
         return new Vector3(gridArray[posX, posY].x, gridArray[posX, posY].y, gridArray[posX, posY].z);
     }
-
-    //temp
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        for (float x = 0; x < rows; x++)
-        {
-            for (float z = 0; z < colums; z++)
-            {
-                float gridSizeX = 10 * transform.localScale.x;
-                float cubeSizeX = 1 * (gridSizeX / rows);
-
-                float gridSizeZ = 10 * transform.localScale.z;
-                float cubeSizeZ = 1 * (gridSizeZ / colums);
-
-                float positionX = transform.position.x + x * (gridSizeX / rows) - gridSizeX / 2 + cubeSizeX / 2;
-                float positionY = transform.position.y;
-                float positionZ = transform.position.z + z * (gridSizeZ / colums) - gridSizeZ / 2 + cubeSizeZ / 2;
-                
-                Gizmos.DrawWireCube(new Vector3(positionX, positionY, positionZ), new Vector3(cubeSizeX, 1, cubeSizeZ));
-            }
-        }
-    }
-    
 }

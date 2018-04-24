@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class DisplayItemInfo : MonoBehaviour
 {
     [SerializeField]
-    private GameObject player;
-    private Pickup pickUp;
+    private GameObject _inventory;
+    private Inventory inventory;
 
     [SerializeField]
     private Text nameText = null;
@@ -29,8 +29,8 @@ public class DisplayItemInfo : MonoBehaviour
 
     void Start()
     {
-        pickUp = player.GetComponent<Pickup>();
-        pickUp.OnCollect += ShowCollectable;
+        inventory = _inventory.GetComponent<Inventory>();
+        inventory.OnAdd += ShowCollectable;
 
         nameText.CrossFadeAlpha(0f, 0f, false);
         line.CrossFadeAlpha(0f, 0f, false);
