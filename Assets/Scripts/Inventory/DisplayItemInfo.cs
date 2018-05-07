@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class DisplayItemInfo : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _inventory;
-    private Inventory inventory;
+    private GameObject player;
+    private Pickup pickUp;
 
     [SerializeField]
     private Text nameText = null;
@@ -29,8 +29,8 @@ public class DisplayItemInfo : MonoBehaviour
 
     void Start()
     {
-        inventory = _inventory.GetComponent<Inventory>();
-        inventory.OnAdd += ShowCollectable;
+        pickUp = player.GetComponent<Pickup>();
+        pickUp.OnCollect += ShowCollectable;
 
         nameText.CrossFadeAlpha(0f, 0f, false);
         line.CrossFadeAlpha(0f, 0f, false);
@@ -40,7 +40,7 @@ public class DisplayItemInfo : MonoBehaviour
     public void ShowCollectable(ObjectData data)
     {
         itemData.Add(data);
-        if(!displaying)
+        if (!displaying)
         {
             StartCoroutine(FadeOut(itemData[0]));
         }
@@ -68,7 +68,7 @@ public class DisplayItemInfo : MonoBehaviour
 
         itemData.RemoveAt(0);
         displaying = false;
-        if(itemData.Count > 0)
+        if (itemData.Count > 0)
         {
             StartCoroutine(FadeOut(itemData[0]));
         }

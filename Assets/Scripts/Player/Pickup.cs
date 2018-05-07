@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject _inventory;
-    private Inventory inventory;
-
-    void Start() { inventory = _inventory.GetComponent<Inventory>(); }
+    public delegate void Collect(ObjectData data);
+    public event Collect OnCollect;
 
     public void CollectItem(float range, bool when)
     {
@@ -25,7 +22,7 @@ public class Pickup : MonoBehaviour
                 {
                     ObjectData obj = collectable.obj;
 
-                    inventory.AddToInventory(obj);
+                    OnCollect(obj);
 
                     Destroy(hit.transform.gameObject);
                 }

@@ -14,4 +14,4 @@ MonoBehaviour:
   name: Wood
   description: I can use this in many ways
   id: 1
-  model: {fileID: 1706324394194826, guid: db72854de5664434684a1e9ada44a9df, type: 2}
+  model: {fileID: 1310067218222666, guid: 60f695a64c2cee044a1ef1b92306bd6b, type: 2}

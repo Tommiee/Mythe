@@ -114,7 +114,7 @@ public class Craft : MonoBehaviour
         {
             CraftItem();
             for (int i = 0; i < crafting.Count; i++)
-            { 
+            {
                 Destroy(crafting[i]);
             }
 
@@ -136,7 +136,7 @@ public class Craft : MonoBehaviour
             collecable.obj.model = allCraftingRecipes[craftableRecipe].model;
         }
     }
-    
+
     void CraftButton()
     {
         if (craftableRecipe > 0)

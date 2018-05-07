@@ -15,20 +15,21 @@ public class InventoryGrid : MonoBehaviour
     private float gridSizeZ;
     private float cubeSizeZ;
 
-    private int[] inventoryPos;
-    private int[] craftPos;
+    private int[] inventoryPosX;
+    private int[] inventoryPosZ;
 
     void Start()
     {
         gridArray = new Tile[rows, colums];
 
-        inventoryPos = new int[] { 1, 2, 3, 4, 8, 9, 10, 11 };
+        inventoryPosX = new int[] { 1, 2, 3, 9, 10, 11, 12};
+        inventoryPosZ = new int[] { 1, 7 };
 
-        gridSizeX = 10 * transform.localScale.x;
-        cubeSizeX = 1 * (gridSizeX / rows);
+        gridSizeX = GetComponent<Renderer>().bounds.size.x;
+        cubeSizeX = gridSizeX / rows;
 
-        gridSizeZ = 10 * transform.localScale.z;
-        cubeSizeZ = 1 * (gridSizeZ / colums);
+        gridSizeZ = GetComponent<Renderer>().bounds.size.z;
+        cubeSizeZ = gridSizeZ / colums;
 
         CreateGrid();
     }
@@ -50,29 +51,50 @@ public class InventoryGrid : MonoBehaviour
 
     public Vector3 GetPosInv()
     {
-        int posX = inventoryPos[Random.Range(0, inventoryPos.Length)];
-        int posY = inventoryPos[Random.Range(0, inventoryPos.Length)];
-
-        while(gridArray[posX, posY].full)
-        {
-            posX = inventoryPos[Random.Range(0, inventoryPos.Length)];
-            posY = inventoryPos[Random.Range(0, inventoryPos.Length)];
-        }
+        int posX = inventoryPosX[Random.Range(0, inventoryPosX.Length)];
+        int posY = inventoryPosZ[Random.Range(0, inventoryPosZ.Length)];
+//        while(gridArray[posX, posY].full)
+//        {
+//            posX = inventoryPos[Random.Range(0, inventoryPos.Length)];
+//            posY = inventoryPos[Random.Range(0, inventoryPos.Length)];
+//        }
 //        gridArray[posX, posY].full = true;
         return new Vector3(gridArray[posX, posY].x, gridArray[posX, posY].y, gridArray[posX, posY].z);
     }
 
     public Vector3 GetPosCraft()
     {
-        int posX = Random.Range(5, 7);
-        int posY = Random.Range(5, 7);
+        int posX = Random.Range(5, 9);
+        int posY = Random.Range(2, 6);
 
-        while (gridArray[posX, posY].full)
-        {
-            posX = Random.Range(5, 7);
-            posY = Random.Range(5, 7);
-        }
+//        while (gridArray[posX, posY].full)
+//        {
+//            posX = Random.Range(5, 7);
+//            posY = Random.Range(5, 7);
+//        }
 //        gridArray[posX, posY].full = true;
         return new Vector3(gridArray[posX, posY].x, gridArray[posX, posY].y, gridArray[posX, posY].z);
     }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        for (float x = 0; x < rows; x++)
+        {
+            for (float z = 0; z < colums; z++)
+            {
+                float gridSizeX = GetComponent<Renderer>().bounds.size.x;
+                float cubeSizeX = 1 * (gridSizeX / rows);
+
+                float gridSizeZ = GetComponent<Renderer>().bounds.size.z;
+                float cubeSizeZ = 1 * (gridSizeZ / colums);
+
+                float positionX = transform.position.x + x * (gridSizeX / rows) - gridSizeX / 2 + cubeSizeX / 2;
+                float positionY = transform.position.y;
+                float positionZ = transform.position.z + z * (gridSizeZ / colums) - gridSizeZ / 2 + cubeSizeZ / 2;
+
+                Gizmos.DrawWireCube(new Vector3(positionX, positionY, positionZ), new Vector3(cubeSizeX, 1, cubeSizeZ));
+            }
+        }
+    }
+
 }
