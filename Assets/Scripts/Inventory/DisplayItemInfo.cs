@@ -40,7 +40,7 @@ public class DisplayItemInfo : MonoBehaviour
     public void ShowCollectable(ObjectData data)
     {
         itemData.Add(data);
-        if(!displaying)
+        if (!displaying)
         {
             StartCoroutine(FadeOut(itemData[0]));
         }
@@ -68,7 +68,7 @@ public class DisplayItemInfo : MonoBehaviour
 
         itemData.RemoveAt(0);
         displaying = false;
-        if(itemData.Count > 0)
+        if (itemData.Count > 0)
         {
             StartCoroutine(FadeOut(itemData[0]));
         }
