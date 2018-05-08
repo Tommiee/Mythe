@@ -41,7 +41,11 @@ RenderSettings:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+=======
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+>>>>>>> parent of 6a6802f... cleaning
 =======
   m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 >>>>>>> parent of 6a6802f... cleaning
