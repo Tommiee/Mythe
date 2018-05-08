@@ -55,19 +55,22 @@ public class MenuControles : MonoBehaviour {
 
 	public void MoveOne(Directions directions)
 	{
-		if (directions == Directions.Up)
+		if (currentMenu == Menus.Start)
 		{
-			if (index > 0)
+			if (directions == Directions.Up)
 			{
-				index--;
+				if (index > 0)
+				{
+					index--;
+				}
+
 			}
-			
-		}
-		else
-		{
-			if (index < buttons.Count - 1)
+			else
 			{
-				index++;
+				if (index < buttons.Count - 1)
+				{
+					index++;
+				}
 			}
 		}
 		selectedButton.GetComponent<IButton3D>().OnDeselected();
