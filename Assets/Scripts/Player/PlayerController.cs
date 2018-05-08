@@ -4,12 +4,14 @@ using UnityEngine;
 
 [RequireComponent(typeof(FirstPerson))]
 [RequireComponent(typeof(Pickup))]
+[RequireComponent(typeof(GroundCheck))]
 public class PlayerController : MonoBehaviour
 {
     private FirstPerson firstPerson;
     private Pickup pickup;
     private InputManager inputManager;
     private Craft craft;
+    private GroundCheck groundcheck;
 
     [SerializeField]
     private Camera inventoryCam;
@@ -36,6 +38,7 @@ public class PlayerController : MonoBehaviour
 
         inputManager = GetComponent<InputManager>();
         firstPerson = GetComponent<FirstPerson>();
+        groundcheck = GetComponent<GroundCheck>();
         pickup = GetComponent<Pickup>();
         craft = inventoryGO.GetComponent<Craft>();
 
@@ -60,6 +63,12 @@ public class PlayerController : MonoBehaviour
 
                 SwitchController(inputManager.TabPress(), inventoryCam, playerCam, PlayerState.INVENTORY);
 
+                if (groundcheck.CheckGround("Acid"))
+                {
+                    Debug.Log("U DIED");
+                    //TODO work in canvas hook with Fade script
+                    //TODO switch scenes after ^
+                }
                 break;
             case PlayerState.INVENTORY:
 
