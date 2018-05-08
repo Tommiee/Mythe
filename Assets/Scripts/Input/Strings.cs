@@ -8,6 +8,5 @@
         public const string MOUSE_Y = "Mouse Y";
         public const string INTERACT = "Interact";
         public const string INVENTORY = "Inventory";
-        public const string MOUSECLICK = "Mouse Click";
     }
 }
