@@ -30,6 +30,25 @@ public class MenuControles : MonoBehaviour {
 		{
 			Continue();
 		}
+
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		Debug.DrawRay(ray.origin, ray.direction * 100);
+
+		RaycastHit hit;
+
+		
+
+		if (Physics.Raycast(ray, out hit))
+		{
+			selectedButton.GetComponent<IButton3D>().OnDeselected();
+			selectedButton = hit.collider.gameObject;
+			selectedButton.GetComponent<IButton3D>().OnSelected();
+		}
+
+		if (Input.GetKeyDown(KeyCode.Mouse0))
+		{
+			Continue();
+		}
 	}
 
 	public void MoveOne(Directions directions)
