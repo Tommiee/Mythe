@@ -15,7 +15,10 @@ public class Button3D : MonoBehaviour , IButton3D {
 	/// </summary>
 	public void OnDeselected()
 	{
-		animator.SetBool("selected",false);
+		if (animator != null)
+		{
+			animator.SetBool("selected", false);
+		}
 	}
 
 	/// <summary>
@@ -23,7 +26,10 @@ public class Button3D : MonoBehaviour , IButton3D {
 	/// </summary>
 	public void OnSelected()
 	{
-		animator.SetBool("selected", true);
+		if (animator != null)
+		{
+			animator.SetBool("selected", true);
+		}
 	}
 
 

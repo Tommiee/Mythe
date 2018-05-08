@@ -12,5 +12,6 @@ public class LoadSceneButton : Button3D, IButton3D {
 	public override void Activate()
 	{
 		SceneManager.LoadScene(scenenName);
+		print("kut");
 	}
 }

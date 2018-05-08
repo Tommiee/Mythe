@@ -7,6 +7,8 @@ public class MenuControles : MonoBehaviour {
 	private List<GameObject> buttons = new List<GameObject>();
 	private GameObject selectedButton;
 	private int index;
+	enum Menus { Start, Options, Credits }
+	Menus currentMenu = Menus.Start;
 
 	// Start is called on initialization of object
 	void Start () {
@@ -75,7 +77,6 @@ public class MenuControles : MonoBehaviour {
 
 	public void Continue()
 	{
-		
 		selectedButton.GetComponent<IButton3D>().Activate();
 	}
 }
