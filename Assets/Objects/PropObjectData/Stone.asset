@@ -14,4 +14,4 @@ MonoBehaviour:
   name: Stone
   description: I can smack stuff
   id: 2
-  model: {fileID: 1903486109299836, guid: 6ff3e2fa5606e5b4fa3900630ece6a79, type: 2}
+  model: {fileID: 1555369189013162, guid: efff790b12f87d946bdc0a12167fdc09, type: 2}

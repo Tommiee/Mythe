@@ -14,4 +14,4 @@ MonoBehaviour:
   name: Rope
   description: I can use this to combine items
   id: 3
-  model: {fileID: 1460840085406534, guid: b196d862967193a42b4e66d9e55e889f, type: 2}
+  model: {fileID: 1544837690962738, guid: e6784a2d3c3557b4e9ce2e8a53faf4b8, type: 2}

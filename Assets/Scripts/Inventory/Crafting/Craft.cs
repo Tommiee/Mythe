@@ -75,7 +75,7 @@ public class Craft : MonoBehaviour
         Ray fwd = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(fwd, out hit, 6f))
+        if (Physics.Raycast(fwd, out hit, 10f))
         {
             if (input)
             {
