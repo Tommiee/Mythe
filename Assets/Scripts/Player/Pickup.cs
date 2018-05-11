@@ -4,19 +4,8 @@ using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject canvas;
-    private DisplayItemInfo showObject;
-
-    [SerializeField]
-    private GameObject inventory;
-    private Inventory invScript;
-
-    void Start()
-    {
-        showObject = canvas.GetComponent<DisplayItemInfo>();
-        invScript = inventory.GetComponent<Inventory>();
-    }
+    public delegate void Collect(ObjectData data);
+    public event Collect OnCollect;
 
     public void CollectItem(float range, bool when)
     {
@@ -24,19 +13,16 @@ public class Pickup : MonoBehaviour
         Vector3 fwd = cam.transform.TransformDirection(Vector3.forward);
         RaycastHit hit;
 
-        if (Physics.Raycast(cam.transform.position, fwd, out hit, 15f))
+        if (Physics.Raycast(cam.transform.position, fwd, out hit, 12f))
         {
             if (when)
             {
-                Collectable collectable;
-                if (collectable = hit.transform.gameObject.GetComponent<Collectable>())
+                Collectable collectable = hit.transform.gameObject.GetComponent<Collectable>();
+                if (collectable != null)
                 {
-                    ObjectData obj = hit.transform.gameObject.GetComponent<Collectable>().obj;
+                    ObjectData obj = collectable.obj;
 
-                    showObject.ShowCollectable(obj);
-
-                    invScript.AddToInventory(obj);
-                    invScript.Instantiateitem(obj);
+                    OnCollect(obj);
 
                     Destroy(hit.transform.gameObject);
                 }

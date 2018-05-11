@@ -9,10 +9,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: Nothing
+  m_Name: Axe
   m_EditorClassIdentifier: Assembly-CSharp::CraftableItem
-  name: 
-  description: 
-  id: 0
-  model: {fileID: 0}
-  requiredIds: 
+  name: Axe
+  description: I can get into the ship with this
+  id: 5
+  model: {fileID: 1670021768345464, guid: 9a25e6781458f0f4e9056fbb351420e0, type: 2}
+  requiredIds: 0100000003000000

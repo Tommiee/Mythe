@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1273174, g: 0.13414761, b: 0.12107885, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2173,11 +2173,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 306985258}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3994811d86de6b4478118b06061f23a4, type: 3}
+  m_Script: {fileID: 11500000, guid: ed19ab281f86bcd408ea5fcae4af6e27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 1230804247}
-  inventory: {fileID: 983154247}
 --- !u!114 &306985260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5528,7 +5526,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &730019459
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6843,13 +6841,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 983154247}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d29c5584160ee81499792fadd656b723, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e25bb57020f05e418acfd49952bbcdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   craftButton: {fileID: 730019458}
   allCraftingRecipes:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 00531603ced04d241ac0e0faf6d43192, type: 2}
+  - {fileID: 11400000, guid: 7085757a26e1249438796f49af3b3a49, type: 2}
   crafting: []
 --- !u!114 &983154252
 MonoBehaviour:
@@ -6872,11 +6870,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 983154247}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26c949bc364e2144f945063adf40666a, type: 3}
+  m_Script: {fileID: 11500000, guid: 40e58d4ff6c948042a459da8ffda3ac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 306985258}
   inventory: 
-  inventoryGrid: {fileID: 0}
 --- !u!1 &983246828
 GameObject:
   m_ObjectHideFlags: 0
@@ -8787,9 +8785,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1230804247}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 233ab8780be52934cb849bf3387d9faa, type: 3}
+  m_Script: {fileID: 11500000, guid: 80a035b5986144e43ae3e9f49f582240, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 306985258}
   nameText: {fileID: 614301088}
   descriptionText: {fileID: 1864668252}
   line: {fileID: 1241001299}
