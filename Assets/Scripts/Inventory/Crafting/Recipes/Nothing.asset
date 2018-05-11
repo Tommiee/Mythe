@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: Nothing
   m_EditorClassIdentifier: Assembly-CSharp::CraftableItem
-  name: nothing
+  name: 
   description: 
   id: 0
   model: {fileID: 0}

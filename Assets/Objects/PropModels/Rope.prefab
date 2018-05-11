@@ -21,9 +21,8 @@ GameObject:
   - component: {fileID: 4846655868288332}
   - component: {fileID: 33509401856309204}
   - component: {fileID: 23357086264760524}
-  - component: {fileID: 64657615977427676}
   - component: {fileID: 114195495378791324}
-  - component: {fileID: 64232659634635044}
+  - component: {fileID: 65774691171739918}
   m_Layer: 0
   m_Name: Rope
   m_TagString: Untagged
@@ -85,8 +84,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1544837690962738}
   m_Mesh: {fileID: 4300000, guid: 97eb022897d852e47a16d4654e6c77fd, type: 3}
---- !u!64 &64232659634635044
-MeshCollider:
+--- !u!65 &65774691171739918
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -94,25 +93,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 97eb022897d852e47a16d4654e6c77fd, type: 3}
---- !u!64 &64657615977427676
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1544837690962738}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 97eb022897d852e47a16d4654e6c77fd, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 13.411655, y: 3.6813219, z: 9.492512}
+  m_Center: {x: -0.65802264, y: 1.2189349, z: -0.9678443}
 --- !u!114 &114195495378791324
 MonoBehaviour:
   m_ObjectHideFlags: 1

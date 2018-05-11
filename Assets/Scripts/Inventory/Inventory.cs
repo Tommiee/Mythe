@@ -5,23 +5,16 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     [SerializeField]
-    private GameObject player;
-    private Pickup pickUp;
-
-    [SerializeField]
     private List<int> inventory = new List<int>();
 
-    private InventoryGrid inventoryGrid;
+    //temp public
+    public InventoryGrid inventoryGrid;
 
     private int differentItems = 16;
 
     void Start()
     {
-        pickUp = player.GetComponent<Pickup>();
         inventoryGrid = GetComponent<InventoryGrid>();
-
-        pickUp.OnCollect += AddToInventory;
-        pickUp.OnCollect += Instantiateitem;
 
         for(var i = 0; i < differentItems; i++)
         {

@@ -63,12 +63,12 @@ public class PlayerController : MonoBehaviour
 
                 SwitchController(inputManager.TabPress(), inventoryCam, playerCam, PlayerState.INVENTORY);
 
-                if (groundcheck.CheckGround("Acid"))
-                {
-                    Debug.Log("U DIED");
+               // if (groundcheck.CheckGround("Acid"))
+               // {
+               //     Debug.Log("U DIED");
                     //TODO work in canvas hook with Fade script
                     //TODO switch scenes after ^
-                }
+               // }
                 break;
             case PlayerState.INVENTORY:
 
